@@ -6,6 +6,8 @@ action :auto_attach do
     action :install
   end
 
+  run_context.include_recipe "xfs"
+
   # Baseline expectations.
   node.set[:aws] ||= {}
   node.set[:aws][:raid] ||= {}
