@@ -180,20 +180,20 @@ def mount_volumes(device_vol_map)
     attach_volume(dev_device, device_vol_map[dev_device])
   end
 
-  # Wait until all volumes are mounted
-  ruby_block "wait_#{new_resource.name}" do
-    block do
-      count = 0
-      begin
-        Chef::Log.info("sleeping 10 seconds until EBS volumes have re-attached")
-        sleep 10
-        count += 1
-      end while !device_vol_map.all? {|dev_path| ::File.exists?(dev_path) }
-
-      # Accounting to see how often this code actually gets used.
-      node.set[:aws][:raid][mount_point][:device_attach_delay] = count * 10
-    end
-  end
+  # Wait until all volumes are mounted. aws_ebs_volume already waits
+  #ruby_block "wait_#{new_resource.name}" do
+  #  block do
+  #    count = 0
+  #    begin
+  #      Chef::Log.info("sleeping 10 seconds until EBS volumes have re-attached")
+  #      sleep 10
+  #      count += 1
+  #    end while !device_vol_map.all? {|dev_path| ::File.exists?(dev_path) }
+  #
+  #    # Accounting to see how often this code actually gets used.
+  #    node.set[:aws][:raid][mount_point][:device_attach_delay] = count * 10
+  #  end
+  #end
 end
 
 # Assembles the raid if it doesn't already exist
