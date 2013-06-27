@@ -143,7 +143,8 @@ Attribute Parameters:
 * `disk_count` - number of EBS volumes to raid
 * `disk_size` - size of EBS volumes to raid
 * `level` - RAID level (default 10)
-* `filesystem` - filesystem to format raid array (default ext4)
+* `filesystem` - filesystem to format raid array (default ext4.
+   Can be xfs but make sure the xfs tools are installed)
 * `snapshots` - array of EBS snapshots to restore. Snapshots must be
   taken using an ec2 consistent snapshot tool, and tagged with a
   number that indicates how many devices are in the array being backed
